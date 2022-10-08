@@ -20,6 +20,6 @@ FROM node:lts
 WORKDIR /app
 
 COPY --from=build-stage /app/node_modules /app/node_modules
-COPY --from=build-stage /app/build /app/
+COPY --from=build-stage /app/out /app/
 
 CMD node start.js

@@ -4,7 +4,8 @@
   "description": "",
   "main": "start.ts",
   "scripts": {
-    "start": "ts-node start.ts"
+    "start": "ts-node start.ts",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "Flamtky",

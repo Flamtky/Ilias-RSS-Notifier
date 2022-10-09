@@ -2,16 +2,34 @@ import axios from 'axios';
 
 /**
  * It takes a string, formats it, and sends it to Discord
- * @param {string} msg - The message you want to send to Discord.
+ * @param {string} embededMsg - The message you want to send to Discord.
+ * @param {string} link - The link to change.
+ * @param {string} timestamp - The timestamp of the message.
+ * @returns {Promise<void>} A promise that resolves when the message is sent. It rejects if the message could not be sent.
  */
-export const sendToDiscord = (msg: string, link: string, timestamp: string) => {
-	msg = prepareDiscordMsg(msg, link, timestamp);
-	axios.post(process.env.WEBHOOK_URL ?? '', msg, {
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	}).catch((err) => {
-		console.debug(err.response.status + ' ' + err.response.statusText);
+export const sendToDiscord = (msg: string, link: string, timestamp: string, _depth = 1) => {
+	const embededMsg = prepareDiscordMsg(msg, link, timestamp);
+	return new Promise<void>((resolve, reject) => {
+		axios.post(process.env.WEBHOOK_URL ?? '', embededMsg, {
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}).catch((err) => {
+			if (err.response.status === 429 && _depth < 6) { // 429 = Too Many Requests | 5 retries
+				const timeout = (err.response.headers['retry-after'] ?? 1) * _depth;
+				console.warn(`Got 429 from Discord. Retrying in ${timeout}ms`);
+				setTimeout(() => {
+					sendToDiscord(msg, link, timestamp, _depth + 1).then(() => {
+						resolve();
+					}).catch((err) => {
+						reject(err);
+					});
+				}, timeout);
+			}
+			reject(err);
+		}).then((res) => {
+			resolve();
+		});
 	});
 };
 

@@ -39,8 +39,11 @@ export const getFeed = (feedParser: Parser<IliasFeed>) => {
 			item.hash = hashCode(item.guid);
 			if (!isSended(item.hash)) {
 				debugDir.set(item.hash, item.title);
-				sendToDiscord(item.title, item.link, item.isoDate);
-				addSendedMsg(item.hash);
+				sendToDiscord(item.title, item.link, item.isoDate).then(() => {
+					addSendedMsg(item.hash);
+				}).catch((err) => {
+					console.warn(`Could not send message to Discord: ${err.response.status + ' ' + err.response.statusText}`);
+				});
 			}
 		});
 

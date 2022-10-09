@@ -22,4 +22,6 @@ WORKDIR /app
 COPY --from=build-stage /app/package*.json /app/
 COPY --from=build-stage /app/out /app/
 
+RUN npm install --production
+
 CMD node start.js

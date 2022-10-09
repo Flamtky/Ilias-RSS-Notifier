@@ -10,8 +10,6 @@ const POLLING_INTERVAL = parseInt(process.env.POLL_INTERVAL || '300') * 1000; //
 if (isNaN(POLLING_INTERVAL) || POLLING_INTERVAL < (30 * 1000)) // Minimum 30 seconds, prevent spam
 	throw new Error('POLL_INTERVAL must be greater than 30 seconds');
 
-
-
 // load sendedMsgs.txt
 fs.mkdirSync(DATA_PATH, { recursive: true });
 if (fs.existsSync(SENDEDMSGS_PATH)) {

@@ -16,6 +16,7 @@ Optional environment variables:
 * `MESSAGE_AUTHOR_ICON` - Discord Webhook Message Author Icon (eg. Link to Ilias Logo)
 * `MESSAGE_FOOTER` - Discord Webhook Message Footer (eg. #time for time of message OR Sent by Ilias RSS Notifier)
 * `MESSAGE_THUMBNAIL` - Discord Webhook Message Thumbnail (eg. Link to Ilias Logo)
+* `DATA_PATH` - Path to the data file (default: ./data/ | Needed for sendedMsgs.txt to keep track of already sended messages after restart/crash)
 
 ## Installation
 ### Manual

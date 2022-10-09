@@ -1,4 +1,4 @@
-FROM node:lts as build-stage
+FROM node:lts-alpine as build-stage
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ FROM node:lts
 
 WORKDIR /app
 
-COPY --from=build-stage /app/node_modules /app/node_modules
+COPY --from=build-stage /app/package*.json /app/
 COPY --from=build-stage /app/out /app/
 
 CMD node start.js

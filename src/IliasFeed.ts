@@ -39,7 +39,7 @@ export const getFeed = (feedParser: Parser<IliasFeed>) => {
 			item.hash = hashCode(item.guid);
 			if (!isSended(item.hash)) {
 				debugDir.set(item.hash, item.title);
-				sendToDiscord(item.title);
+				sendToDiscord(item.title, item.link, item.isoDate);
 				addSendedMsg(item.hash);
 			}
 		});

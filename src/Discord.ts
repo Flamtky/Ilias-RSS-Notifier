@@ -4,8 +4,8 @@ import axios from 'axios';
  * It takes a string, formats it, and sends it to Discord
  * @param {string} msg - The message you want to send to Discord.
  */
-export const sendToDiscord = (msg: string) => {
-	msg = prepareDiscordMsg(msg);
+export const sendToDiscord = (msg: string, link: string, timestamp: string) => {
+	msg = prepareDiscordMsg(msg, link, timestamp);
 	axios.post(process.env.WEBHOOK_URL ?? '', msg, {
 		headers: {
 			'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ export const sendToDiscord = (msg: string) => {
  * @param {string} msg - The message that is being sent to Discord.
  * @returns {string} A stringified JSON object.
  */
-const prepareDiscordMsg = (msg: string): string => {
+const prepareDiscordMsg = (msg: string, link: string, timestamp: string):string => {
 	const regex = /^\[(.+?)\] (.+): (.+)$/gm;
 
 	const match = regex.exec(msg);
@@ -35,7 +35,17 @@ const prepareDiscordMsg = (msg: string): string => {
 		  {
 			"title": match?.[1],
 			"description": match?.[3].replace('Die Datei', match?.[2]),
-			"color": 0x003c65
+			"url": link,
+			"color": parseInt(process.env.MESSAGE_COLOR?.replace('#', "0x") ?? '0x003c65'),
+			"author": {
+				"name": process.env.AUTHOR,
+				"url": process.env.AUTHOR_URL,
+				"icon_url": process.env.AUTHOR_ICON
+			},
+			"timestamp": timestamp,
+			"thumbnail": {
+				"url": process.env.THUMBNAIL
+			}
 		  }
 		]
 	});

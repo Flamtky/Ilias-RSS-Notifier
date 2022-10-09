@@ -29,7 +29,7 @@ const prepareDiscordMsg = (msg: string, link: string, timestamp: string):string 
 		return JSON.stringify({
 			content: msg
 		});
-
+	const date = new Date(timestamp);
 	const message = JSON.stringify({
 		"embeds": [
 		  {
@@ -38,13 +38,16 @@ const prepareDiscordMsg = (msg: string, link: string, timestamp: string):string 
 			"url": link,
 			"color": parseInt(process.env.MESSAGE_COLOR?.replace('#', "0x") ?? '0x003c65'),
 			"author": {
-				"name": process.env.AUTHOR,
-				"url": process.env.AUTHOR_URL,
-				"icon_url": process.env.AUTHOR_ICON
+				"name": process.env.MESSAGE_AUTHOR,
+				"url": process.env.MESSAGE_AUTHOR_URL,
+				"icon_url": process.env.MESSAGE_AUTHOR_ICON
 			},
 			"timestamp": timestamp,
+			"footer": {
+				"text": (process.env.MESSAGE_FOOTER ?? '#time').replace('#time', date.toLocaleTimeString())
+			},
 			"thumbnail": {
-				"url": process.env.THUMBNAIL
+				"url": process.env.MESSAGE_THUMBNAIL
 			}
 		  }
 		]

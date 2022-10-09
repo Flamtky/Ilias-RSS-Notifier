@@ -27,7 +27,8 @@ if (fs.existsSync('sendedMsgs.txt')) {
 
 const parser: Parser<IliasFeed> = new Parser();
 
-getFeed(parser);
-setInterval(()=> {
-	getFeed(parser);
-}, POLLING_INTERVAL);
+getFeed(parser).then(() => {
+	setInterval(()=> {
+		getFeed(parser);
+	}, POLLING_INTERVAL);
+});

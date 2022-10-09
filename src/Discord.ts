@@ -9,6 +9,7 @@ import axios from 'axios';
  */
 export const sendToDiscord = (msg: string, link: string, timestamp: string, _depth = 1) => {
 	const embededMsg = prepareDiscordMsg(msg, link, timestamp);
+	console.log("sending to discord: " + msg);
 	return new Promise<void>((resolve, reject) => {
 		axios.post(process.env.WEBHOOK_URL ?? '', embededMsg, {
 			headers: {

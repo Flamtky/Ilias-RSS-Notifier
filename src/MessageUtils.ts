@@ -1,6 +1,9 @@
 import fs from 'fs';
 import { sendedMsgs } from './IliasFeed';
 
+export const DATA_PATH = (process.env.DATA_PATH || './data/')+"/";
+export const SENDEDMSGS_PATH = DATA_PATH + 'sendedMsgs.txt';
+
 /**
  * It adds a number to an array, then writes the array to a file
  * @param {number} msg - number - The message Hash to add to the array
@@ -8,7 +11,7 @@ import { sendedMsgs } from './IliasFeed';
 export const addSendedMsg = (msg: number) => {
 	if (isNaN(msg)) throw new Error('Given msg hash is not a number');
 	sendedMsgs.push(msg);
-	fs.writeFileSync('sendedMsgs.txt', sendedMsgs.join(' '));
+	fs.writeFileSync(SENDEDMSGS_PATH, sendedMsgs.join(' '));
 };
 
 /**
@@ -28,5 +31,5 @@ export const isSended = (msg: number) => {
 export const removeSendedMsg = (msg: number) => {
 	if (isNaN(msg)) throw new Error('Given msg hash is not a number');
 	sendedMsgs.splice(sendedMsgs.indexOf(msg), 1);
-	fs.writeFileSync('sendedMsgs.txt', sendedMsgs.join(' '));
+	fs.writeFileSync(SENDEDMSGS_PATH, sendedMsgs.join(' '));
 };

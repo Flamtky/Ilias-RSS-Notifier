@@ -25,8 +25,9 @@ export const sendToDiscord = (msg: string, link: string, timestamp: string, _dep
 						reject(err);
 					});
 				}, timeout);
+			} else {
+				reject(err);
 			}
-			reject(err);
 		}).then((res) => {
 			resolve();
 		});

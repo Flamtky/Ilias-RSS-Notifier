@@ -6,6 +6,7 @@ import { sendedMsgs } from './IliasFeed';
  * @param {number} msg - number - The message Hash to add to the array
  */
 export const addSendedMsg = (msg: number) => {
+	if (isNaN(msg)) throw new Error('Given msg hash is not a number');
 	sendedMsgs.push(msg);
 	fs.writeFileSync('sendedMsgs.txt', sendedMsgs.join(' '));
 };
@@ -16,6 +17,7 @@ export const addSendedMsg = (msg: number) => {
  * @returns {boolean} - true if the number is in the array, false if not
  */
 export const isSended = (msg: number) => {
+	if (isNaN(msg)) throw new Error('Given msg hash is not a number');
 	return sendedMsgs.includes(msg);
 };
 
@@ -24,6 +26,7 @@ export const isSended = (msg: number) => {
  * @param {number} msg - The message Hash to remove from the sendedMsgs array.
  */
 export const removeSendedMsg = (msg: number) => {
+	if (isNaN(msg)) throw new Error('Given msg hash is not a number');
 	sendedMsgs.splice(sendedMsgs.indexOf(msg), 1);
 	fs.writeFileSync('sendedMsgs.txt', sendedMsgs.join(' '));
 };

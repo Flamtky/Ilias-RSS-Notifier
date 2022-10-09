@@ -44,7 +44,7 @@ export const getFeed = (feedParser: Parser<IliasFeed>):Promise<void> => {
 					try {
 						let response = await sendToDiscord(item.title, item.link, item.isoDate);
 						addSendedMsg(item.hash);
-					} catch(err) {
+					} catch(err: any) {
 						console.warn(`Could not send message to Discord: ${err.response.status + ' ' + err.response.statusText}`);
 					}
 				}

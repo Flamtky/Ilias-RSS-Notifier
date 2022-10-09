@@ -53,5 +53,10 @@ export const getFeed = (feedParser: Parser<IliasFeed>) => {
 
 		console.table(debugDir);
 	})
-
+	.catch((err: Error) => {
+		if (err.message === 'Status code 401') {
+			throw new Error('Wrong username or password');
+		}
+		throw err;
+	});
 }

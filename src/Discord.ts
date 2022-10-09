@@ -25,8 +25,9 @@ export const sendToDiscord = (msg: string, link: string, timestamp: string, _dep
 						reject(err);
 					});
 				}, timeout);
+			} else {
+				reject(err);
 			}
-			reject(err);
 		}).then((res) => {
 			resolve();
 		});
@@ -62,7 +63,7 @@ const prepareDiscordMsg = (msg: string, link: string, timestamp: string):string 
 			},
 			"timestamp": timestamp,
 			"footer": {
-				"text": (process.env.MESSAGE_FOOTER ?? '#time').replace('#time', date.toLocaleTimeString())
+				"text": (process.env.MESSAGE_FOOTER ?? '#time').replace('#time', date.toLocaleTimeString(undefined, { hour12: false })),
 			},
 			"thumbnail": {
 				"url": process.env.MESSAGE_THUMBNAIL

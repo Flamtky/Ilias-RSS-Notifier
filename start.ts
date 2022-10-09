@@ -9,9 +9,13 @@ const POLLING_INTERVAL = parseInt(process.env.POLL_INTERVAL || '300') * 1000; //
 if (isNaN(POLLING_INTERVAL) || POLLING_INTERVAL < (30 * 1000)) // Minimum 30 seconds, prevent spam
 	throw new Error('POLL_INTERVAL must be greater than 30 seconds');
 
+const DATA_PATH = process.env.DATA_PATH+"/" || './data/';
+const SENDEDMSGS_PATH = DATA_PATH + 'sendedMsgs.txt';
+
 // load sendedMsgs.txt
-if (fs.existsSync('sendedMsgs.txt')) {
-	const sendedMsgsString = fs.readFileSync('sendedMsgs.txt', 'utf8');
+fs.mkdirSync(DATA_PATH, { recursive: true });
+if (fs.existsSync(SENDEDMSGS_PATH)) {
+	const sendedMsgsString = fs.readFileSync(SENDEDMSGS_PATH, 'utf8');
 	if (sendedMsgsString !== '') {
 		sendedMsgsString.split(' ').forEach((hash) => {
 			const h:number = parseInt(hash);
@@ -22,7 +26,7 @@ if (fs.existsSync('sendedMsgs.txt')) {
 		});
 	}
 } else {
-	fs.writeFileSync('sendedMsgs.txt', '');
+	fs.writeFileSync(SENDEDMSGS_PATH, '');
 }
 
 const parser: Parser<IliasFeed> = new Parser();

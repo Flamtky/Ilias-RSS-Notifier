@@ -3,10 +3,12 @@ import Parser from 'rss-parser';
 import fs from 'fs';
 import { getFeed, IliasFeed, sendedMsgs } from './src/IliasFeed';
 import { DATA_PATH, SENDEDMSGS_PATH } from './src/MessageUtils';
+import './src/Logging';
 
 dotenv.config();
 
 const POLLING_INTERVAL = parseInt(process.env.POLL_INTERVAL || '300') * 1000; // default 5 minutes
+
 if (isNaN(POLLING_INTERVAL) || POLLING_INTERVAL < (30 * 1000)) // Minimum 30 seconds, prevent spam
 	throw new Error('POLL_INTERVAL must be greater than 30 seconds');
 
@@ -18,7 +20,7 @@ if (fs.existsSync(SENDEDMSGS_PATH)) {
 		sendedMsgsString.split(' ').forEach((hash) => {
 			const h:number = parseInt(hash);
 			if (!isNaN(h)) 
-				sendedMsgs.push(h)
+				sendedMsgs.push(h);
 			else
 				console.warn('Invalid hash in sendedMsgs.txt: ' + hash);
 		});

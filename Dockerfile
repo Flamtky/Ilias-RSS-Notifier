@@ -15,7 +15,7 @@ RUN rm -rf /app/node_modules # delete dev dependencies
 RUN npm install --omit=dev # install production dependencies
 
 #Create NODE deployment
-FROM node:lts
+FROM node:lts-alpine
 
 WORKDIR /app
 

@@ -22,6 +22,12 @@ WORKDIR /app
 COPY --from=build-stage /app/package*.json /app/
 COPY --from=build-stage /app/out /app/
 
+# Setup Times
+RUN apk add tzdata
+RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+RUN echo "Europe/Berlin" >  /etc/timezone
+RUN apk del tzdata
+
 RUN npm install --production
 
 CMD node start.js

@@ -33,10 +33,9 @@ Optional environment variables:
 
 ### Docker
 * **Github Repository:**
-    - `docker pull ghcr.io/flamtky/ilias-rss-notifier:latest`
-* **Manual Build:**
-    1. Clone the repository
-    2. Build the Docker image
+    1. Clone the repository or get from Github Packages (`docker pull ghcr.io/flamtky/ilias-rss-notifier:latest`)
+    2. Change timezone in [Dockerfile](/Dockerfile) (Default: 'Europe/Berlin')
+    3. Build the Docker image (__only on manual build__)
         - `docker build -t ilias-rss-notifier .`
-    3. Run the Docker container
+    4. Run the Docker container
         - `docker run -d --name ilias-rss-notifier -e <ENVIRONMENT_VARIABLES> ilias-rss-notifier`

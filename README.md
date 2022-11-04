@@ -21,14 +21,15 @@ Optional environment variables:
 ## Installation
 ### Manual
 1. Clone the repository
-2. Install TypeScript and Node.js
+2. Change timezone in [Dockerfile](/Dockerfile) (Default: 'Europe/Berlin')
+3. Install TypeScript and Node.js
    - `npm install typescript --save-dev` (or `yarn add typescript --dev`)
-3. Install dependencies
+4. Install dependencies
    - `npm install`
-4. Build the project
+5. Build the project
     - `npm run build` or `tsc`
-5. Create a `.env` or set the environment variables manually (see above)
-6. Run the script
+6. Create a `.env` or set the environment variables manually (see above)
+7. Run the script
     - Cd into the `out` folder and run `npm start`
 
 ### Docker

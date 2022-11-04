@@ -21,23 +21,21 @@ Optional environment variables:
 ## Installation
 ### Manual
 1. Clone the repository
-2. Change timezone in [Dockerfile](/Dockerfile) (Default: 'Europe/Berlin')
-3. Install TypeScript and Node.js
+2. Install TypeScript and Node.js
    - `npm install typescript --save-dev` (or `yarn add typescript --dev`)
-4. Install dependencies
+3. Install dependencies
    - `npm install`
-5. Build the project
+4. Build the project
     - `npm run build` or `tsc`
-6. Create a `.env` or set the environment variables manually (see above)
-7. Run the script
+5. Create a `.env` or set the environment variables manually (see above)
+6. Run the script
     - Cd into the `out` folder and run `npm start`
 
 ### Docker
 * **Github Repository:**
-    - `docker pull ghcr.io/flamtky/ilias-rss-notifier:latest`
-* **Manual Build:**
-    1. Clone the repository
-    2. Build the Docker image
+    1. Clone the repository or get from Github Packages (`docker pull ghcr.io/flamtky/ilias-rss-notifier:latest`)
+    2. Change timezone in [Dockerfile](/Dockerfile) (Default: 'Europe/Berlin')
+    3. Build the Docker image (__only on manual build__)
         - `docker build -t ilias-rss-notifier .`
-    3. Run the Docker container
+    4. Run the Docker container
         - `docker run -d --name ilias-rss-notifier -e <ENVIRONMENT_VARIABLES> ilias-rss-notifier`

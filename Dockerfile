@@ -23,9 +23,10 @@ COPY --from=build-stage /app/package*.json /app/
 COPY --from=build-stage /app/out /app/
 
 # Setup Times
+ENV TZ='Europe/Berlin'
 RUN apk add tzdata
-RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-RUN echo "Europe/Berlin" >  /etc/timezone
+RUN cp /usr/share/zoneinfo/${TZ} /etc/localtime
+RUN echo ${TZ} > /etc/timezone
 RUN apk del tzdata
 
 RUN npm install --production

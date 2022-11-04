@@ -62,7 +62,7 @@ const prepareEmbededMsg = (title: string, text: string, link: string, color: num
 						type === "newFile"
 							? process.env.MESSAGE_THUMBNAIL_NEWFILE
 							: process.env.MESSAGE_THUMBNAIL_FORUM
-							?? process.env.MESSAGE_THUMBNAIL,
+							?? '',
 				},
 			},
 		],

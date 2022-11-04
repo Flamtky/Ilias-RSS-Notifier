@@ -9,17 +9,20 @@ export type IliasFeed = {
 	title: string;
 	link: string;
 	description: string;
-	items: {
-		title: string;
-		link: string;
-		pubDate: string;
-		content: string;
-		contentSnippet: string;
-		guid: string;
-		isoDate: string;
-		hash: number;
-	}[];
+	items: IliasFeedItem[];
 };
+
+export type IliasFeedItem = {
+	title: string;
+	link: string;
+	pubDate: string;
+	content: string;
+	contentSnippet: string;
+	guid: string;
+	isoDate: string;
+	hash: number;
+};
+
 
 /**
  * It gets the feed from the ILIAS server, sorts it by date, checks if the message is already sent, if
@@ -42,7 +45,7 @@ export const getFeed = (feedParser: Parser<IliasFeed>):Promise<void> => {
 				if (!isSended(item.hash)) {
 					debugDir.set(item.hash, item.title);
 					try {
-						await sendToDiscord(item.title, item.link, item.isoDate);
+						await sendToDiscord(item);
 						addSendedMsg(item.hash);
 					} catch(err: any) {
 						console.warn(`Could not send message to Discord: ${err.response.status + ' ' + err.response.statusText}`);

@@ -60,7 +60,7 @@ export const getFeed = (feedParser: Parser<IliasFeed>):Promise<void> => {
 				}
 			});
 
-			console.table(debugDir.size > 0 ? debugDir : 'No new messages');
+			// console.table(debugDir.size > 0 ? debugDir : 'No new messages');
 			resolve();
 		})
 		.catch((err: Error) => {

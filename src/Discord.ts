@@ -17,7 +17,7 @@ export const sendToDiscord = (item: IliasFeedItem, _depth = 1) => {
 				const timeout = (err.response.headers['retry-after'] ?? 1000) * _depth + 10000; // header + count of retries + 10s
 				console.warn(`Got 429 from Discord. Retrying in ${timeout}ms`);
 				setTimeout(() => {
-					sendToDiscord(item).then(() => {
+					sendToDiscord(item, _depth + 1).then(() => {
 						resolve();
 					}).catch((err) => {
 						reject(err);
